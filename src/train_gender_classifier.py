@@ -5,9 +5,9 @@ Email: arriaga.camargo@gmail.com
 Github: https://github.com/oarriaga
 Description: Train gender classification model
 """
-
-from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
-from keras.callbacks import ReduceLROnPlateau
+import tensorflow as tf
+from tensorflow.keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
+from tensorflow.keras.callbacks import ReduceLROnPlateau
 from utils.datasets import DataManager
 from models.cnn import mini_XCEPTION
 from utils.data_augmentation import ImageGenerator

@@ -1,7 +1,7 @@
 from statistics import mode
-
+import tensorflow as tf
 import cv2
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 
 from utils.datasets import get_labels
@@ -11,6 +11,8 @@ from utils.inference import draw_bounding_box
 from utils.inference import apply_offsets
 from utils.inference import load_detection_model
 from utils.preprocessor import preprocess_input
+gpu = tf.config.experimental.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(gpu[0], True)
 
 # parameters for loading data and images
 detection_model_path = '../trained_models/detection_models/haarcascade_frontalface_default.xml'
@@ -33,7 +35,7 @@ emotion_window = []
 
 # starting video streaming
 cv2.namedWindow('window_frame')
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture(-1)
 while True:
     bgr_image = video_capture.read()[1]
     gray_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2GRAY)

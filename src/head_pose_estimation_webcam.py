@@ -52,7 +52,7 @@ ALL_POINTS = list(range(0,68)) #Used for debug only
 def main():
 
     #Defining the video capture object
-    video_capture = cv2.VideoCapture(0)
+    video_capture = cv2.VideoCapture(-1)
 
     if(video_capture.isOpened() == False):
         print("Error: the resource is busy or unvailable")
@@ -156,7 +156,7 @@ def main():
     while(True):
 
         # Capture frame-by-frame
-        ret, frame = video_capture.read()
+        ret, frame = video_capture.read(-1)
         gray = cv2.cvtColor(frame[roi_y1:roi_y2, roi_x1:roi_x2], cv2.COLOR_BGR2GRAY)
 
         #Looking for faces with cascade

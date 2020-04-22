@@ -10,13 +10,15 @@ import cv2
 import sys
 from utils.haar_cascade import haarCascade
 from utils.face_landmark_detection import faceLandmarkDetection
-
+import socket
 import os
 print(os.getcwd())
 
 #If True enables the verbose mode
 DEBUG = True 
-
+UDP_IP = "192.168.1.9"
+UDP_PORT = 8080
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 #Antropometric constant values of the human head. 
 #Found on wikipedia and on:
 # "Head-and-Face Anthropometric Survey of U.S. Respirator Users"
@@ -249,6 +251,8 @@ def main():
                 print("ROI: ", roi_x1, roi_y1, roi_x2, roi_y2, roi_w, roi_h)
                 #Drawing a green rectangle
                 # (and text) around the face.
+                MESSAGE = "FACE: {}, {}, {}, {}, {}, {}".format(face_x1, face_y1, face_x2, face_y2, face_w, face_h)
+                sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
                 text_x1 = face_x1
                 text_y1 = face_y1 - 3
                 if(text_y1 < 0): text_y1 = 0
